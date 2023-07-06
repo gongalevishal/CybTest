@@ -11,7 +11,6 @@ import retrofit2.Response
 
 class ComicsApiRepo(private val api: ComicApi) {
     val movies = MutableStateFlow<NetworkResult<ApiResponse>>(NetworkResult.Initial())
-    val moviesDetails = mutableStateOf<ComicResult?>(null)
 
     fun query(query: String) {
         movies.value = NetworkResult.Loading()
@@ -36,14 +35,5 @@ class ComicsApiRepo(private val api: ComicApi) {
                 }
 
             })
-    }
-
-    fun getSingleCharacter(id: Int?) {
-        id?.let {
-            moviesDetails.value =
-                movies.value.data?.results?.firstOrNull { character ->
-                    character.id == id
-                }
-        }
     }
 }
